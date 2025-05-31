@@ -1,0 +1,6 @@
+@APBD_zajecia12_HostAddress = http://localhost:5273
+
+GET {{APBD_zajecia12_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

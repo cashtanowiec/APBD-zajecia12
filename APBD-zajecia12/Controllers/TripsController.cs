@@ -37,9 +37,17 @@ public class TripsController : ControllerBase
             var id = await _tripsService.AddClient(idTrip, addClientDto);
             return Ok(id);
         }
-        catch (Exception exc)
+        catch (ArgumentException argEx)
         {
-            return BadRequest(exc.Message);
+            return BadRequest(argEx.Message);
+        }
+        catch (KeyNotFoundException keyEx)
+        {
+            return NotFound(keyEx.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal server error");
         }
     }
     

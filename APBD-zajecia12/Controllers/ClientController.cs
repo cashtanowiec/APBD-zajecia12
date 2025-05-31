@@ -19,11 +19,19 @@ public class ClientController : ControllerBase
         try
         {
             await _clientService.Remove(id);
-            return Ok("200 OK");
+            return NoContent();
         }
-        catch (Exception exc)
+        catch (KeyNotFoundException exc)
         {
-            return BadRequest(exc.Message);
+            return NotFound(exc.Message);
+        }
+        catch (InvalidOperationException exc)
+        {
+            return Conflict(exc.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal server error");
         }
     }
 }

@@ -23,10 +23,10 @@ public class ClientService : IClientService
                 .FirstOrDefaultAsync(c => c.IdClient == id);
             
             if (client == null)
-                throw new ArgumentException("Client doesn't exist!");
+                throw new KeyNotFoundException("Client doesn't exist!");
 
             if (client.ClientTrips.Any())
-                throw new ArgumentException("Client has assigned trips!");
+                throw new InvalidOperationException("Client has assigned trips!");
 
             _databaseContext.Clients.Remove(client);
             await _databaseContext.SaveChangesAsync();
